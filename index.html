@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snehan S - CS Engineer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #e0e0e0;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(15, 15, 35, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #64ffda;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #e0e0e0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #64ffda;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #64ffda;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .mobile-menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #64ffda;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            background: rgba(15, 15, 35, 0.98);
+            backdrop-filter: blur(10px);
+            padding: 2rem 0;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+        }
+
+        .mobile-menu ul li {
+            padding: 1rem 0;
+        }
+
+        .mobile-menu ul li a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
+        .mobile-menu ul li a:hover {
+            color: #64ffda;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(100,255,218,0.05)" points="0,0 1000,300 1000,1000 0,700"/></svg>');
+            z-index: -1;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: #64ffda;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.9;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(45deg, #64ffda, #4fc3f7);
+            color: #0f0f23;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(100, 255, 218, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(100, 255, 218, 0.4);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 80px 0;
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #64ffda;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(45deg, #64ffda, #4fc3f7);
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .about-image {
+            text-align: center;
+        }
+
+        .profile-img {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            border: 4px solid #64ffda;
+            box-shadow: 0 10px 30px rgba(100, 255, 218, 0.3);
+            object-fit: cover;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: rgba(26, 26, 46, 0.7);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            backdrop-filter: blur(5px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(100, 255, 218, 0.2);
+        }
+
+        .skill-category h3 {
+            color: #64ffda;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            background: rgba(100, 255, 218, 0.1);
+            color: #64ffda;
+            padding: 0.8rem 1.2rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(100, 255, 218, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-tag:hover {
+            background: rgba(100, 255, 218, 0.2);
+            border-color: #64ffda;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(100, 255, 218, 0.3);
+        }
+
+        .skill-tag::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .skill-tag:hover::before {
+            left: 100%;
+        }
+
+        .skill-icon {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+        }
+
+        /* Education Section */
+        .education-timeline {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .education-item {
+            background: rgba(26, 26, 46, 0.7);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 15px;
+            border-left: 4px solid #64ffda;
+            position: relative;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .education-item:hover {
+            background: rgba(26, 26, 46, 0.9);
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(100, 255, 218, 0.2);
+            border-left-width: 8px;
+        }
+
+        .education-item::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 16px;
+            background: #64ffda;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .education-item:hover::before {
+            width: 20px;
+            height: 20px;
+            left: -10px;
+            box-shadow: 0 0 15px rgba(100, 255, 218, 0.5);
+        }
+
+        .education-item h3 {
+            color: #64ffda;
+            margin-bottom: 0.5rem;
+        }
+
+        .education-item h4 {
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .education-year {
+            color: #4fc3f7;
+            font-weight: bold;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: rgba(26, 26, 46, 0.7);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(100, 255, 218, 0.2);
+        }
+
+        .project-card h3 {
+            color: #64ffda;
+            margin-bottom: 1rem;
+        }
+
+        .project-card p {
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-tag {
+            background: rgba(79, 195, 247, 0.1);
+            color: #4fc3f7;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .project-link {
+            color: #64ffda;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .project-link:hover {
+            color: #4fc3f7;
+        }
+
+        /* Resume Section */
+        .resume-section {
+            text-align: center;
+            background: rgba(26, 26, 46, 0.7);
+            padding: 3rem;
+            border-radius: 15px;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+        }
+
+        .resume-section h3 {
+            color: #64ffda;
+            margin-bottom: 1rem;
+        }
+
+        .resume-section p {
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(26, 26, 46, 0.7);
+            padding: 3rem;
+            border-radius: 15px;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #64ffda;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid rgba(100, 255, 218, 0.3);
+            border-radius: 8px;
+            background: rgba(15, 15, 35, 0.5);
+            color: #e0e0e0;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #64ffda;
+            box-shadow: 0 0 10px rgba(100, 255, 218, 0.3);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #64ffda, #4fc3f7);
+            color: #0f0f23;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            font-size: 1.1rem;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(100, 255, 218, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(15, 15, 35, 0.95);
+            padding: 2rem 0;
+            text-align: center;
+            border-top: 1px solid rgba(100, 255, 218, 0.2);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-links a {
+            color: #64ffda;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #4fc3f7;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content h2 {
+                font-size: 1.5rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .skills-grid,
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-img {
+                width: 250px;
+                height: 250px;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="#home" class="logo">Snehan S</a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#resume">Resume</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content fade-in-up">
+                <h1>Snehan S</h1>
+                <h2>Computer Science Engineering Student</h2>
+                <p>Passionate about creating innovative solutions through code. Specializing in full-stack development, machine learning, and software engineering.</p>
+                <a href="#contact" class="btn">Get In Touch</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>I'm a dedicated Computer Science Engineering student with a passion for technology and problem-solving. Currently pursuing my degree, I have developed strong skills in various programming languages and technologies.</p>
+                    <p>My journey in computer science began with curiosity about how things work behind the scenes. This curiosity has driven me to explore various domains including web development, mobile applications, artificial intelligence, and data science.</p>
+                    <p>When I'm not coding, you can find me contributing to open-source projects, participating in hackathons, or learning about the latest technology trends. I believe in continuous learning and staying updated with industry developments.</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://via.placeholder.com/300x300/64ffda/0f0f23?text=Your+Photo" alt="Profile Picture" class="profile-img">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section">
+        <div class="container">
+            <h2 class="section-title">Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Programming Languages</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">JavaScript</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Web Development</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">HTML5</span>
+                        <span class="skill-tag">CSS3</span>
+                        <span class="skill-tag">React</span>
+                        <span class="skill-tag">django</span>
+                    </div>
+                </div>
+                <!-- <div class="skill-category">
+                    <h3>Data Science & AI</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Machine Learning</span>
+                        <span class="skill-tag">TensorFlow</span>
+                        <span class="skill-tag">Pandas</span>
+                        <span class="skill-tag">NumPy</span>
+                        <span class="skill-tag">Scikit-learn</span>
+                        <span class="skill-tag">OpenCV</span>
+                    </div>
+                </div> -->
+                <div class="skill-category">
+                    <h3>Tools & Technologies</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Git</span>
+                        <span class="skill-tag">MySQL</span>
+                        <span class="skill-tag">PostgreSQL</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="section">
+        <div class="container">
+            <h2 class="section-title">Education</h2>
+            <div class="education-timeline">
+                <div class="education-item">
+                    <h3>Bachelor of Technology - Computer Science Engineering</h3>
+                    <h4>XYZ University</h4>
+                    <p class="education-year">2025 - 2029</p>
+                    <p>Current CGPA: 9.8/10</p>
+                    <p>Relevant coursework: Data Structures & Algorithms, Database Management Systems, Computer Networks, Software Engineering, Machine Learning, Operating Systems</p>
+                </div>
+                <div class="education-item">
+                    <h3>Higher Secondary Education (12th Grade)</h3>
+                    <h4>Fusco's Matric Higher Secondary School</h4>
+                    <p class="education-year">2022 - 2024</p>
+                    <p>Percentage: 87.5%</p>
+                    <p>Stream: Physics, Chemistry, Mathematics, Biology</p>
+                </div>
+                <div class="education-item">
+                    <h3>Secondary Education (10th Grade)</h3>
+                    <h4>Fusco's Matric Higher Secondary School</h4>
+                    <p class="education-year">2021 - 2022</p>
+                    <p>Percentage: 87.8%</p>
+                    <p>Subjects: Mathematics, Science, English, Tamil, Social Science</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+        <div class="container">
+            <h2 class="section-title">Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <h3>E-Commerce Web Application</h3>
+                    <p>A full-stack e-commerce platform with user authentication, product catalog, shopping cart, and payment integration. Built with modern web technologies.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">React</span>
+                        <span class="tech-tag">Node.js</span>
+                        <span class="tech-tag">MongoDB</span>
+                        <span class="tech-tag">Express.js</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">Live Demo</a>
+                        <a href="#" class="project-link">GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resume Section -->
+    <section id="resume" class="section">
+        <div class="container">
+            <h2 class="section-title">Resume</h2>
+            <div class="resume-section">
+                <h3>Download My Resume</h3>
+                <p>Get a comprehensive overview of my skills, experience, and achievements in a professionally formatted document.</p>
+                <a href="./Resume.pdf" class="btn" download="Snehan's Resume.pdf">Download PDF Resume</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="container">
+            <h2 class="section-title">Reach Me Out</h2>
+            <form class="contact-form" id="contactForm" action="https://formspree.io/f/xvgrepye" method="post">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" required placeholder="Tell me about your project or just say hi!"></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="https://github.com/snehanofficial" target="_blank">GitHub</a>
+                <a href="https://linkedin.com/in/snehanofficial" target="_blank">LinkedIn</a>
+                <a href="mailto:contact.snehanofficial@gmail.com">Email</a>
+            </div>
+            <p>&copy; 2025 Snehan S. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Form submission handler
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const subject = formData.get('subject');
+            const message = formData.get('message');
+            
+            // Simple validation
+            if (!name || !email || !subject || !message) {
+                alert('Please fill in all fields.');
+                return;
+            }
+            
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+            
+            // Success message (in a real application, you would send this to a server)
+            alert('Thank you for your message! I will get back to you soon.');
+            this.reset();
+        });
+
+        // Add animation on scroll
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.section');
+            elements.forEach(element => {
+                const elementTop = element.offsetTop;
+                const elementBottom = elementTop + element.offsetHeight;
+                const viewportTop = window.scrollY;
+                const viewportBottom = viewportTop + window.innerHeight;
+                
+                if (elementBottom > viewportTop && elementTop < viewportBottom) {
+                    element.classList.add('fade-in-up');
+                }
+            });
+        }
+
+        // Navbar background change on scroll
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                navbar.style.background = 'rgba(15, 15, 35, 0.98)';
+            } else {
+                navbar.style.background = 'rgba(15, 15, 35, 0.95)';
+            }
+            
+            animateOnScroll();
+        });
+
+        // Initial animation check
+        animateOnScroll();
+    </script>
+</body>
+</html>
