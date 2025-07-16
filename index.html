@@ -828,7 +828,7 @@
         <div class="container">
             <h2 class="section-title">Reach Me Out</h2>
           <!--  <form class="contact-form" id="contactForm" action="https://formspree.io/f/xvgrepye" method="post"> -->
-           <form class="contact-form" id="contactForm" method="post" data-netlify="true" action="/?success=true">
+           <form class="contact-form" id="contactForm" method="post" data-netlify="true">
     <!-- Hidden input for Netlify -->
            <input type="hidden" name="form-name" value="contact">
                 <div class="form-group">
@@ -905,18 +905,6 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
     const submitBtn = this.querySelector('.submit-btn');
     submitBtn.textContent = 'Sending...';
     submitBtn.disabled = true;
-});
-
-// Check for success parameter on page load
-document.addEventListener('DOMContentLoaded', function() {
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('success') === 'true') {
-        alert('Thank you for your message! I will get back to you soon.');
-        
-        // Clean up the URL (remove success parameter)
-        const newUrl = window.location.origin + window.location.pathname;
-        window.history.replaceState({}, document.title, newUrl);
-    }
 });
 
         // Add animation on scroll
