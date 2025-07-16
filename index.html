@@ -827,11 +827,10 @@
     <section id="contact" class="section">
         <div class="container">
             <h2 class="section-title">Reach Me Out</h2>
-          <!--  <form class="contact-form" id="contactForm" action="https://formspree.io/f/xvgrepye" method="post" netlify> -->
-           <form class="contact-form" id="contactForm" method="post" data-netlify="true">
-               <!-- Hidden input for Netlify -->
-               <input type="hidden" name="form-name" value="contact">
-
+          <!--  <form class="contact-form" id="contactForm" action="https://formspree.io/f/xvgrepye" method="post"> -->
+           <form class="contact-form" id="contactForm" method="post" data-netlify="true" action="/?success=true">
+    <!-- Hidden input for Netlify -->
+           <input type="hidden" name="form-name" value="contact">
                 <div class="form-group">
                     <label for="name">Full Name</label>
                     <input type="text" id="name" name="name" required placeholder="Enter your name">
@@ -877,7 +876,9 @@
         });
 
         // Form submission handler
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
+        
+// Form submission handler
+document.getElementById('contactForm').addEventListener('submit', function(e) {
     // Get form data
     const formData = new FormData(this);
     const name = formData.get('name');
@@ -887,7 +888,7 @@
     
     // Simple validation
     if (!name || !email || !subject || !message) {
-        e.preventDefault(); // Only prevent if validation fails
+        e.preventDefault();
         alert('Please fill in all fields.');
         return;
     }
@@ -895,23 +896,27 @@
     // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-        e.preventDefault(); // Only prevent if validation fails
+        e.preventDefault();
         alert('Please enter a valid email address.');
         return;
     }
     
-    // If validation passes, let the form submit naturally
-    // Show loading state (optional)
+    // Show loading state
     const submitBtn = this.querySelector('.submit-btn');
     submitBtn.textContent = 'Sending...';
     submitBtn.disabled = true;
-
-    // Form Success
-    window.addEventListener('load', function() {
-    if (window.location.search.includes('success=true')) {
-        alert('Thank you for your message! I will get back to you soon.');
-    }
 });
+
+// Check for success parameter on page load
+document.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('success') === 'true') {
+        alert('Thank you for your message! I will get back to you soon.');
+        
+        // Clean up the URL (remove success parameter)
+        const newUrl = window.location.origin + window.location.pathname;
+        window.history.replaceState({}, document.title, newUrl);
+    }
 });
 
         // Add animation on scroll
